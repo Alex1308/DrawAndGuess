@@ -18,8 +18,6 @@ function erase() {
 }
 
 slider.oninput = function () {
-    console.log(this.value);
-    console.log(colorWheel.color);
     canvas.freeDrawingLineWidth = this.value;
 }
 
@@ -33,8 +31,6 @@ var colorWheel = iro.ColorWheel("#colorpicker", {
 });
 
 function changeColor() {
-    console.log("HEJ");
-    console.log(colorWheel.color.rgbString);
     canvas.freeDrawingColor = colorWheel.color.rgbString;
 }
 
