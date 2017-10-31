@@ -4,9 +4,10 @@ var canvas = new fabric.Canvas('canvas', {
     isDrawingMode: true
 });
 
+function draw() {
+}
 
 var onload = function () {
-    console.log("HEJ")
     canvas.freeDrawingColor = "rgb(255, 0, 0)"
     canvas.freeDrawingLineWidth = 50;
 }

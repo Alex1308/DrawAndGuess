@@ -23,47 +23,55 @@ a:hover { text-decoration:underline; }
     padding-bottom:25px;
     background:#EBF4FB;
     width: 504px;
+    height: auto;
     border:1px solid #ACD8F0;
     flex-grow: 1;}
 
 #drawfield {
     margin:5% auto;
+    margin-bottom: 0px;
     background:#fff;
-    height:470px;
+    height: 470px;
     width:630px;
     border:1px solid #ACD8F0;
     overflow:auto;
 }
 
 
-#colorwheel {
-
-}
-
-#tools {
-
+#drawingword {
+    align-self: center;
+    margin-top: 2%;
+    margin-bottom: 2%;
+    height: 0.5%;
 }
 
 #drawwrapper {
-    margin-left: 10%;
+
     padding-bottom:25px;
     background:#EBF4FB;
     width: 704px;
+    height: auto;
     border:1px solid #ACD8F0;
 
 }
 
+#toolwrapper {
+    border:1px solid #ACD8F0;
+    width: 15%;
+    background: #EBF4FB;
+    margin-left: 5%;
+}
 #loginform { padding-top:18px; }
 
 #loginform p { margin: 5px; }
 
 #chatbox {
     text-align:left;
-    margin:0 auto;
-    margin-bottom:25px;
+    margin: 2% auto;
+    margin-bottom:15px;
     padding:10px;
     background:#fff;
-    height: 80%;
+    height: 81.3%;
     width:430px;
     border:1px solid #ACD8F0;
     overflow:auto; }
