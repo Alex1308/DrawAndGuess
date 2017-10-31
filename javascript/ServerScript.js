@@ -9,7 +9,7 @@ app.get('/style.css', function(req, res) {
     res.sendFile(__dirname + "/" + "Style.css");
 });
 app.get('/', function(req, res,next) {
-    res.sendFile(__dirname + '/Server.html');
+    res.sendFile(__dirname + '/Index.html');
 });
 
 server.listen(4200);
