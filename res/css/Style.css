@@ -60,7 +60,13 @@ a:hover { text-decoration:underline; }
     width: 15%;
     background: #EBF4FB;
     margin-left: 5%;
+    padding-bottom: 1%;
+    padding-top: 1%;
+    padding-right: 1%;
+    padding-left: 0.5%;
 }
+
+
 #loginform { padding-top:18px; }
 
 #loginform p { margin: 5px; }
@@ -94,3 +100,7 @@ a:hover { text-decoration:underline; }
 .msgln { margin:0 0 2px 0; }
 
 .container { display: flex; }
+
+.wheel {size: auto;}
+
+.size-slider {size: auto;}
