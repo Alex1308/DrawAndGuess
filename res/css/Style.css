@@ -28,13 +28,13 @@ a:hover { text-decoration:underline; }
 
 #drawfield {
     margin:5% auto;
-    padding:10px;
     background:#fff;
     height:470px;
     width:630px;
     border:1px solid #ACD8F0;
     overflow:auto;
 }
+
 
 #colorwheel {
 

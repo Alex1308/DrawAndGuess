@@ -4,13 +4,18 @@ var canvas = new fabric.Canvas('canvas', {
     isDrawingMode: true
 });
 
+
 var onload = function () {
+    console.log("HEJ")
     canvas.freeDrawingColor = "rgb(255, 0, 0)"
     canvas.freeDrawingLineWidth = 50;
 }
 
 
-function erase() {
+
+
+
+/*function erase() {
     canvas.freeDrawingColor = "rgb(255, 255, 255)";
 }
 
@@ -26,7 +31,7 @@ var colorWheel = iro.ColorWheel("#colorpicker", {
     sliderMargin: 0,
     markerRadius: 0,
     color: "rgb(68, 255, 158)",
-});
+});*/
 
 
 
