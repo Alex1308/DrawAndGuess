@@ -13,14 +13,13 @@ var onload = function () {
 }
 
 
-
 function erase() {
     canvas.freeDrawingColor = "rgb(255, 255, 255)";
 }
 
 slider.oninput = function () {
     console.log(this.value);
-    console.log(colorWheel.rgb);
+    console.log(colorWheel.color);
     canvas.freeDrawingLineWidth = this.value;
 }
 
@@ -30,18 +29,13 @@ var colorWheel = iro.ColorWheel("#colorpicker", {
     padding: 0,
     sliderMargin: 0,
     markerRadius: 0,
-    color: "rgb(68, 255, 158)"
+    color: "rgb(255, 0, 0)"
 });
 
 function changeColor() {
-    console.log("HEJ")
-    canvas.freeDrawingColor = colorWheel.color;
-}
-
-colorWheel.onChange = function () {
     console.log("HEJ");
-    console.log(colorWheel.color());
-    canvas.freeDrawingColor = colorWheel.value.toRgb();
+    console.log(colorWheel.color.rgbString);
+    canvas.freeDrawingColor = colorWheel.color.rgbString;
 }
 
 
@@ -51,6 +45,7 @@ function myFunction() {
     alert ("Hello World!");
     console.log("test");
 }
+
 
 
 
