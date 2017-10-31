@@ -27,9 +27,7 @@ a:hover { text-decoration:underline; }
     flex-grow: 1;}
 
 #drawfield {
-    margin:25px auto;
-    margin-bottom:25px;
-    margin-top:25px;
+    margin:5% auto;
     padding:10px;
     background:#fff;
     height:470px;
