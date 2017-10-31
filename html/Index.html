@@ -16,13 +16,18 @@
 <div id="Header" align="middle"><h1>Draw And Guess</h1></div>
 
 <div class="container">
+    <div id="toolwrapper">
+        <div class="wheel" id="colorpicker" onclick="changeColor()"></div>
+        <input class="size-slider" type="range" max="100" min="0" step="1" value="100" id="slider">
+    </div>
     <div id="drawwrapper">
-
+        <div id="drawingword"><h2>Your word is: Mathias Gunder Von Tofte</h2></div>
         <div id="drawfield">
             <canvas id="canvas" width="630" height="470"></canvas>
             <script src="../res/javascript/DrawingScript.js"></script>
         </div>
     </div>
+
 
     <div id="wrapper">
         <div id="menu">
