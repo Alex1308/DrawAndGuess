@@ -39,13 +39,6 @@ function changeColor() {
 }
 
 
-colorWheel.addEventListener("click", myFunction());
-
-function myFunction() {
-    alert ("Hello World!");
-    console.log("test");
-}
-
 
 
 
