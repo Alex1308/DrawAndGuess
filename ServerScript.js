@@ -6,7 +6,11 @@ var port = 9200;
 
 var path = require('path');
 
-app.use(express.static('res'));
+var options = {
+    index: "html/index.html"
+};
+
+app.use('/', express.static('res', options));
 
 server.listen(port);
 console.log("Listening on port " + port);
