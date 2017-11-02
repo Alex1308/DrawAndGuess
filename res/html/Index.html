@@ -6,9 +6,27 @@
     <script src="/plugins/fabric.js"></script>
     <script src="/plugins/iro.min.js"></script>
     <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
 
     <link rel="stylesheet" type="text/css" href="/css/Style.css">
 </head>
+<script>
+    $(function () {
+        var socket = io();
+        $('form').submit(function() {
+            if ($('#usermsg').val() === "" || $('#username').val() === "") {
+                return false;
+            }
+            socket.emit('chat message', $('#username').val() + ": " + $('#usermsg').val());
+            $('#usermsg').val('');
+            return false;
+        });
+        socket.on('chat message', function(msg) {
+            console.log('Is called');
+            $('#messages').append($('<li>').text(msg));
+        });
+    });
+</script>
 <body onload="onload();">
 
 <div id="Header" align="middle"><h1>Draw And Guess</h1></div>
@@ -29,15 +47,17 @@
 
     <div id="wrapper">
         <div id="menu">
-            <p class="welcome">Welcome, <b></b></p>
+            <p class="welcome" align="left">Welcome, <b><input id="username" type="text" id="username" size="45"/></b></p>
             <p class="logout"><a id="exit" href="#">Exit Chat</a></p>
             <div style="clear:both"></div>
         </div>
 
-        <div id="chatbox"></div>
+        <div id="chatbox">
+            <ul id="messages"></ul>
+        </div>
 
         <form name="message" action="">
-            <input name="usermsg" type="text" id="usermsg" size="63"/>
+            <input id="usermsg" type="text" id="usermsg" size="63"/>
             <input name="submitmsg" type="submit" id="submitmsg" value="Send"/>
         </form>
     </div>
@@ -51,7 +71,6 @@
 
     });
 </script>
-
 
 
 </body>

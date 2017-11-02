@@ -24,7 +24,7 @@ a:hover { text-decoration:underline; }
     background:#EBF4FB;
     width: 504px;
     height: auto;
-    border:1px solid #ACD8F0;
+    border:1px solid #404040;
     flex-grow: 1;}
 
 #drawfield {
@@ -33,7 +33,7 @@ a:hover { text-decoration:underline; }
     background:#fff;
     height: 470px;
     width:630px;
-    border:1px solid #ACD8F0;
+    border:1px solid #404040;
     overflow:auto;
 }
 
@@ -51,12 +51,12 @@ a:hover { text-decoration:underline; }
     background:#EBF4FB;
     width: 704px;
     height: auto;
-    border:1px solid #ACD8F0;
+    border:1px solid #404040;
 
 }
 
 #toolwrapper {
-    border:1px solid #ACD8F0;
+    border:1px solid #404040;
     width: 15%;
     background: #EBF4FB;
     margin-left: 5%;
@@ -79,13 +79,22 @@ a:hover { text-decoration:underline; }
     background:#fff;
     height: 81.3%;
     width:430px;
-    border:1px solid #ACD8F0;
+    border:1px solid #404040;
     overflow:auto; }
+
+#messages { list-style-type: none; margin: 0; padding: 0; background: #fff}
+#messages li { padding: 5px 10px; }
+#messages li:nth-child(odd) { background: #eee; }
 
 #usermsg {
     width:395px;
     height: 20px;
-    border:1px solid #ACD8F0; }
+    border:1px solid #404040; }
+
+#username {
+    width: 30%;
+    border:1px solid #404040;
+}
 
 #submit { width: 60px; }
 
