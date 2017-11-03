@@ -26,7 +26,7 @@
         });
         if(canvas.isDrawingMode) {
             canvas.on("path:created", function() {
-                var json = canvas;
+                var json = canvas.toDatalessJSON();
 
                 console.log(json);
                 socket.emit('json canvas',json);
@@ -45,8 +45,7 @@
         socket.on('json canvas', function(json) {
             console.log("hej jeg har modtaget din tegning");
             console.log(json);
-            canvas = json;
-            canvas.renderAll.bind('#canvas');
+            canvas.loadFromDatalessJSON(json, canvas.renderAll.bind(canvas));
         });
         socket.on('draw message', function(msg) {
             $('#messages').append($('<li>').text(msg));
