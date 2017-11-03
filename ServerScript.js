@@ -22,9 +22,20 @@ io.on('connection', function (socket) {
     console.log('A user connected');
     clients.push(socket.id);
     socket.emit('socketID', socket.id);
-    AssignWordToPlayer(socket);
-    socket.on('chat message', function(msg) {
-        io.emit('chat message', msg);
+    socket.on('chat message', function(msg, username) {
+        io.emit('chat message', msg, username);
+
+        console.log(chosenWord);
+        //check if word is geussed correctly
+        if(chosenWord.toLowerCase() == msg.toLowerCase()) {
+
+            io.emit('server message', "Server: Correct! The word was: " + chosenWord);
+
+            //Do stuff
+            console.log("Correct geuss!");
+
+        }
+
     });
     socket.on('disconnect' , function() {
         var index = clients.indexOf(socket.id);
@@ -40,12 +51,15 @@ io.on('connection', function (socket) {
 var i = 0;
 
 function AssignWordToPlayer(socket) {
+    io.emit('no drawing');
     if (i >= clients.length) {
         i = 0;
     }
     ChooseRandomWord();
-    console.log(clients[i]);
     io.to(clients[i]).emit('new word', chosenWord);
+    socket.on('word accepted', function(username) {
+        io.emit('draw message', 'The new drawer is ' + username + '. You now have 1 minute to guess the word.');
+    });
     i++;
 }
 

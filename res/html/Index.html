@@ -10,47 +10,35 @@
 
     <link rel="stylesheet" type="text/css" href="/css/Style.css">
 </head>
-
 <script>
     var id;
     $(function () {
         var socket = io();
-        // chat
         $('form').submit(function() {
             if ($('#usermsg').val() === "" || $('#username').val() === "") {
                 return false;
             }
-            socket.emit('chat message', $('#usermsg').val());
+            socket.emit('chat message', $('#usermsg').val(), $('#username').val());
             $('#usermsg').val('');
             return false;
         });
-        if(canvas.isDrawingMode) {
-            canvas.on("path:created", function() {
-                var json = canvas.toJSON();
-
-                console.log(json);
-                socket.emit('json canvas',json);
-            })
-        }
         socket.on('socketID', function(socketID) {
             id = socketID;
         });
-        socket.on('chat message', function(msg) {
-            $('#messages').append($('<li>').text($('#username').val() + ": " + msg));
+        socket.on('chat message', function(msg, username) {
+            $('#messages').append($('<li>').text(username + ": " + msg));
         });
         socket.on('new word', function(word) {
-            console.log(word);
+            document.getElementById("word").innerHTML = "Your word is: " + word;
+            socket.emit('word accepted', $('#username').val());
         });
-        socket.on('json canvas', function(json) {
-           console.log("hej jeg har modtaget din tegning");
-           console.log(json);
-           canvas.loadFromJSON(json, canvas.renderAll.bind(canvas));
-
+        socket.on('draw message', function(msg) {
+            $('#messages').append($('<li>').text(msg));
         });
-
+        socket.on('server message', function(msg) {
+            $('#messages').append($('<li>').text(msg));
+        })
     });
-
-
 </script>
 <body onload="onload();">
 
@@ -59,11 +47,11 @@
 <div class="container">
     <div id="toolwrapper">
         <div class="wheel" id="colorpicker" onclick="changeColor()"></div>
-        <input class="size-slider" type="range" max="100" min="0" step="1" value="100" id="slider">
+        <input class="size-slider" type="range" max="100" min="0" step="1" value="10" id="slider">
         <button onclick="erase()">Erase</button>
     </div>
     <div id="drawwrapper">
-        <div id="drawingword"><h2>Someone else is drawing. Try to guess their drawing!</h2></div>
+        <div id="drawingword"><h2 id="word">Someone else is drawing. Try to guess their drawing!</h2></div>
         <div id="drawfield">
             <canvas id="canvas" width="630" height="470"></canvas>
             <script src="/javascript/DrawingScript.js"></script>
