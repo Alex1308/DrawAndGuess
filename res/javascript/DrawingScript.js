@@ -9,7 +9,7 @@ function draw() {
 
 var onload = function () {
     canvas.freeDrawingColor = "rgb(255, 0, 0)"
-    canvas.freeDrawingLineWidth = 50;
+    canvas.freeDrawingLineWidth = 10;
 }
 
 
