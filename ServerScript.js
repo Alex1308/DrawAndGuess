@@ -32,6 +32,7 @@ io.on('connection', function (socket) {
     });
     socket.on('json canvas', function(json) {
         console.log("ja du er kommet her til");
+        console.log(json);
        socket.broadcast.emit('json canvas', json);
     });
 });
