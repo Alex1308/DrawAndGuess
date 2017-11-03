@@ -22,6 +22,7 @@ io.on('connection', function (socket) {
     console.log('A user connected');
     clients.push(socket.id);
     socket.emit('socketID', socket.id);
+    AssignWordToPlayer(socket);
     socket.on('chat message', function(msg) {
         io.emit('chat message', msg);
     });
@@ -30,6 +31,19 @@ io.on('connection', function (socket) {
         clients.splice(index, 1);
     })
 });
+
+var i = 0;
+
+function AssignWordToPlayer(socket) {
+    if (i >= clients.length) {
+        i = 0;
+    }
+    ChooseRandomWord();
+    console.log(clients[i]);
+    io.to(clients[i]).emit('new word', chosenWord);
+    i++;
+}
+
 
 
 var chosenWord;
@@ -45,7 +59,7 @@ var possibleWords = [
     "Captain Morgan",
     "Zeppelin",
     "Burger",
-    "Cannoo",
+    "Canoe",
     "Supermarket",
     "Torpedo",
     "Offside",
@@ -74,5 +88,5 @@ var possibleWords = [
 
 function ChooseRandomWord() {
     var random = Math.floor((Math.random()* possibleWords.length));
-    return possibleWords[random];
+    chosenWord = possibleWords[random];
 }
