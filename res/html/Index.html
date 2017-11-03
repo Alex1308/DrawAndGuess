@@ -10,6 +10,7 @@
 
     <link rel="stylesheet" type="text/css" href="/css/Style.css">
 </head>
+
 <script>
     var id;
     $(function () {
@@ -28,6 +29,20 @@
         socket.on('chat message', function(msg) {
             $('#messages').append($('<li>').text(msg));
         });
+        socket.on('json canvas', function(json) {
+           console.log("hej jeg har modtaget din tegning");
+        });
+    });
+</script>
+<script>
+    $(function() {
+        var socket = io();
+        if(canvas.isDrawingMode) {
+            if(canvas.on("object:modified")) {
+                json = saveCanvas();
+                socket.emit('json canvas',json);
+            }
+        }
     });
 </script>
 <body onload="onload();">

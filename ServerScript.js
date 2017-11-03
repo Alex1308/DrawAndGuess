@@ -28,8 +28,12 @@ io.on('connection', function (socket) {
     socket.on('disconnect' , function() {
         var index = clients.indexOf(socket.id);
         clients.splice(index, 1);
-    })
+    });
+    socket.on('json canvas', function(json) {
+       io.broadcast.emit('json canvas', json);
+    });
 });
+
 
 
 var chosenWord;
