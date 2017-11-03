@@ -23,8 +23,8 @@ io.on('connection', function (socket) {
     clients.push(socket.id);
     socket.emit('socketID', socket.id);
     AssignWordToPlayer(socket);
-    socket.on('chat message', function(msg) {
-        io.emit('chat message', msg);
+    socket.on('chat message', function(msg, username) {
+        io.emit('chat message', msg, username);
     });
     socket.on('disconnect' , function() {
         var index = clients.indexOf(socket.id);
@@ -35,12 +35,17 @@ io.on('connection', function (socket) {
 var i = 0;
 
 function AssignWordToPlayer(socket) {
+    io.emit('no drawing');
     if (i >= clients.length) {
         i = 0;
     }
     ChooseRandomWord();
     console.log(clients[i]);
     io.to(clients[i]).emit('new word', chosenWord);
+    socket.on('word accepted', function(username) {
+        console.log(username);
+        io.emit('draw message', 'The new drawer is ' + username);
+    });
     i++;
 }
 
