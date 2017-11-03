@@ -27,7 +27,7 @@ io.on('connection', function (socket) {
 
         console.log(chosenWord);
         //check if word is geussed correctly
-        if(chosenWord.toLowerCase() == msg.toLowerCase()) {
+        if(chosenWord.toLowerCase() === msg.toLowerCase()) {
 
             io.emit('server message', "Server: Correct! The word was: " + chosenWord);
 
