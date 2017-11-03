@@ -20,15 +20,14 @@ console.log("Listening on port " + port);
 
 io.on('connection', function (socket) {
     console.log('A user connected');
-    clients.add(socket.id);
-    console.log(clients[0]);
-    socket.send('request nickname');
+    clients.push(socket.id);
+    socket.emit('socketID', socket.id);
     socket.on('chat message', function(msg) {
         io.emit('chat message', msg);
     });
     socket.on('disconnect' , function() {
-        clients.remove(socket.id);
-        console.log(clients[0]);
+        var index = clients.indexOf(socket.id);
+        clients.splice(index, 1);
     })
 });
 
