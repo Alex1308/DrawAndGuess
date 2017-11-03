@@ -23,6 +23,18 @@ io.on('connection', function (socket) {
     clients.push(socket.id);
     socket.emit('socketID', socket.id);
     socket.on('chat message', function(msg) {
+
+
+        console.log(chosenWord);
+
+        //Check if word is geussed
+        if(chosenWord == msg) {
+
+
+            //Do stuff
+            console.log("Test");
+        }
+
         io.emit('chat message', msg);
     });
     socket.on('disconnect' , function() {
@@ -30,6 +42,7 @@ io.on('connection', function (socket) {
         clients.splice(index, 1);
     })
 });
+
 
 
 var chosenWord;
