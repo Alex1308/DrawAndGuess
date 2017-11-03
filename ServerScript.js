@@ -40,7 +40,12 @@ io.on('connection', function (socket) {
     socket.on('disconnect' , function() {
         var index = clients.indexOf(socket.id);
         clients.splice(index, 1);
-    })
+    });
+    socket.on('json canvas', function(json) {
+        console.log("ja du er kommet her til");
+        console.log(json);
+       socket.broadcast.emit('json canvas', json);
+    });
 });
 
 var i = 0;
@@ -57,6 +62,7 @@ function AssignWordToPlayer(socket) {
     });
     i++;
 }
+
 
 
 
