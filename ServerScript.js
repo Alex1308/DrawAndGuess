@@ -22,7 +22,6 @@ io.on('connection', function (socket) {
     console.log('A user connected');
     clients.push(socket.id);
     socket.emit('socketID', socket.id);
-    AssignWordToPlayer(socket);
     socket.on('chat message', function(msg, username) {
         io.emit('chat message', msg, username);
     });
@@ -40,11 +39,9 @@ function AssignWordToPlayer(socket) {
         i = 0;
     }
     ChooseRandomWord();
-    console.log(clients[i]);
     io.to(clients[i]).emit('new word', chosenWord);
     socket.on('word accepted', function(username) {
-        console.log(username);
-        io.emit('draw message', 'The new drawer is ' + username);
+        io.emit('draw message', 'The new drawer is ' + username + '. You now have 1 minute to guess the word.');
     });
     i++;
 }
