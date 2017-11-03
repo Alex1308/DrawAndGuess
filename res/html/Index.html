@@ -35,13 +35,14 @@
         });
         socket.on('json canvas', function(json) {
            console.log("hej jeg har modtaget din tegning");
-           canvas.loadFromJSON(json);
+           canvas.loadFromJSON(json, function() {canvas.renderAll();});
         });
         // canvas
+        json = canvas.toJSON();
+        socket.emit('json canvas',json);
         if(canvas.isDrawingMode) {
             if(canvas.on("object:modified")) {
-                json = saveCanvas();
-                socket.emit('json canvas',json);
+
             }
         }
     });
