@@ -34,9 +34,7 @@ function changeColor() {
     canvas.freeDrawingColor = colorWheel.color.rgbString;
 }
 
-function saveCanvas() {
-    return json = JSON.stringify(canvas);
-}
+
 
 
 

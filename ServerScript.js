@@ -31,7 +31,8 @@ io.on('connection', function (socket) {
         clients.splice(index, 1);
     });
     socket.on('json canvas', function(json) {
-       io.broadcast.emit('json canvas', json);
+        console.log("ja du er kommet her til");
+       socket.broadcast.emit('json canvas', json);
     });
 });
 

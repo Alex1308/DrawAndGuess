@@ -15,6 +15,7 @@
     var id;
     $(function () {
         var socket = io();
+        // chat
         $('form').submit(function() {
             if ($('#usermsg').val() === "" || $('#username').val() === "") {
                 return false;
@@ -34,12 +35,9 @@
         });
         socket.on('json canvas', function(json) {
            console.log("hej jeg har modtaget din tegning");
+           canvas.loadFromJSON(json);
         });
-    });
-</script>
-<script>
-    $(function() {
-        var socket = io();
+        // canvas
         if(canvas.isDrawingMode) {
             if(canvas.on("object:modified")) {
                 json = saveCanvas();
@@ -47,6 +45,8 @@
             }
         }
     });
+
+
 </script>
 <body onload="onload();">
 
