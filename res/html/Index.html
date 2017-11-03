@@ -25,6 +25,12 @@
         socket.on('socketID', function(socketID) {
             id = socketID;
         });
+        socket.on('server message', function(msg) {
+            $('#messages').append($('<li>').text(msg));
+        });
+        socket.on('no drawing', function() {
+            canvas.isDrawingMode(false);
+        });
         socket.on('chat message', function(msg) {
             $('#messages').append($('<li>').text($('#username').val() + ": " + msg));
         });
