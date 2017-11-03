@@ -18,18 +18,22 @@
             if ($('#usermsg').val() === "" || $('#username').val() === "") {
                 return false;
             }
-            socket.emit('chat message', $('#usermsg').val());
+            socket.emit('chat message', $('#usermsg').val(), $('#username').val());
             $('#usermsg').val('');
             return false;
         });
         socket.on('socketID', function(socketID) {
             id = socketID;
         });
-        socket.on('chat message', function(msg) {
-            $('#messages').append($('<li>').text($('#username').val() + ": " + msg));
+        socket.on('chat message', function(msg, username) {
+            $('#messages').append($('<li>').text(username + ": " + msg));
         });
         socket.on('new word', function(word) {
-            console.log(word);
+            document.getElementById("word").innerHTML = "Your word is: " + word;
+            socket.emit('word accepted', $('#username').val());
+        });
+        socket.on('draw message', function(msg) {
+            $('#messages').append($('<li>').text(msg));
         });
     });
 </script>
@@ -44,7 +48,7 @@
         <button onclick="erase()">Erase</button>
     </div>
     <div id="drawwrapper">
-        <div id="drawingword"><h2>Someone else is drawing. Try to guess their drawing!</h2></div>
+        <div id="drawingword"><h2 id="word">Someone else is drawing. Try to guess their drawing!</h2></div>
         <div id="drawfield">
             <canvas id="canvas" width="630" height="470"></canvas>
             <script src="/javascript/DrawingScript.js"></script>
