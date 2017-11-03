@@ -25,6 +25,18 @@ io.on('connection', function (socket) {
     AssignWordToPlayer(socket);
     socket.on('chat message', function(msg, username) {
         io.emit('chat message', msg, username);
+
+        console.log(chosenWord);
+        //check if word is geussed correctly
+        if(chosenWord.toLowerCase() == msg.toLowerCase()) {
+
+            io.emit('server message', "Server: Correct! The word was: " + chosenWord);
+
+            //Do stuff
+            console.log("Correct geuss!");
+
+        }
+
     });
     socket.on('disconnect' , function() {
         var index = clients.indexOf(socket.id);
