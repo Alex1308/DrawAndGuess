@@ -28,7 +28,6 @@ io.on('connection', function (socket) {
         io.emit('chat message', msg, username);
 
         clients.get(socket.id)[1] = username;
-        console.log(chosenWord);
         //check if word is guessed correctly
         if (chosenWord !== "") {
             if (chosenWord.toLowerCase() === msg.toLowerCase()) {
@@ -45,7 +44,6 @@ io.on('connection', function (socket) {
 
     });
     socket.on('start game', function () {
-        console.log("kalder start game");
         StartGame(socket);
     });
     socket.on('disconnect', function () {
