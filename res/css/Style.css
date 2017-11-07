@@ -1,42 +1,50 @@
 /* CSS Document */
-body {
-    font:12px arial;
+body, html {
+    font: 12px arial;
     color: #222;
-    text-align:center;
-    padding:35px; }
+    text-align: center;
+    padding: 35px;
+    max-height: 100%;
+}
 
 form, p, span {
-    margin:0;
-    padding:0; }
+    margin: 0;
+    padding: 0;
+}
 
-input { font:12px arial; }
+input {
+    font: 12px arial;
+}
 
 a {
-    color:#0000FF;
-    text-decoration:none; }
+    color: #0000FF;
+    text-decoration: none;
+}
 
-a:hover { text-decoration:underline; }
+a:hover {
+    text-decoration: underline;
+}
 
 #wrapper, #loginform {
     margin: 0 auto;
     margin-right: 5%;
-    padding-bottom:25px;
-    background:#EBF4FB;
+    padding-bottom: 25px;
+    background: #EBF4FB;
     width: 504px;
     height: auto;
-    border:1px solid #404040;
-    flex-grow: 1;}
-
-#drawfield {
-    margin:5% auto;
-    margin-bottom: 0px;
-    background:#fff;
-    height: 470px;
-    width:630px;
-    border:1px solid #404040;
-    overflow:auto;
+    border: 1px solid #404040;
+    flex-grow: 1;
 }
 
+#drawfield {
+    margin: 5% auto;
+    margin-bottom: 0px;
+    background: #fff;
+    height: 470px;
+    width: 630px;
+    border: 1px solid #404040;
+    overflow: auto;
+}
 
 #drawingword {
     align-self: center;
@@ -47,17 +55,18 @@ a:hover { text-decoration:underline; }
 
 #drawwrapper {
 
-    padding-bottom:25px;
-    background:#EBF4FB;
+    padding-bottom: 25px;
+    background: #EBF4FB;
     width: 704px;
     height: auto;
-    border:1px solid #404040;
+    border: 1px solid #404040;
 
 }
 
 #toolwrapper {
-    border:1px solid #404040;
+    border: 1px solid #404040;
     width: 15%;
+    height: auto;
     background: #EBF4FB;
     margin-left: 5%;
     padding-bottom: 1%;
@@ -66,54 +75,105 @@ a:hover { text-decoration:underline; }
     padding-left: 0.5%;
 }
 
+#loginform {
+    padding-top: 18px;
+}
 
-#loginform { padding-top:18px; }
-
-#loginform p { margin: 5px; }
+#loginform p {
+    margin: 5px;
+}
 
 #chatbox {
-    text-align:left;
+    text-align: left;
     margin: 2% auto;
-    margin-bottom:15px;
-    padding:10px;
-    background:#fff;
+    margin-bottom: 15px;
+    padding: 10px;
+    background: #fff;
     height: 81.3%;
-    width:430px;
-    border:1px solid #404040;
-    overflow:auto; }
+    width: 430px;
+    border: 1px solid #404040;
+    overflow: auto;
+}
 
-#messages { list-style-type: none; margin: 0; padding: 0; background: #fff}
-#messages li { padding: 5px 10px; }
-#messages li:nth-child(odd) { background: #eee; }
+#messages {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    background: #fff
+}
+
+#messages li {
+    padding: 5px 10px;
+}
+
+#messages li:nth-child(odd) {
+    background: #eee;
+}
+
+#score {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    background: #fff;
+    overflow: auto;
+    height: 30%;
+    overflow-x: hidden;
+    max-height: 250px
+}
+
+#score li {
+    padding: 5px 10px;
+}
+
+#score li:nth-child(odd) {
+    background: #eee;
+}
 
 #usermsg {
-    width:395px;
+    width: 395px;
     height: 20px;
-    border:1px solid #404040; }
+    border: 1px solid #404040;
+}
 
 #username {
     width: 30%;
-    border:1px solid #404040;
+    border: 1px solid #404040;
 }
 
-#submit { width: 60px; }
+#submit {
+    width: 60px;
+}
 
-.error { color: #ff0000; }
+.error {
+    color: #ff0000;
+}
 
 #menu {
-    padding:12.5px 25px 12.5px 25px;
+    padding: 12.5px 25px 12.5px 25px;
     width: 100%;
-
 }
 
-.welcome { float:left; }
+.welcome {
+    float: left;
+}
 
-.logout { float:right; }
+.logout {
+    float: right;
+}
 
-.msgln { margin:0 0 2px 0; }
+.msgln {
+    margin: 0 0 2px 0;
+}
 
-.container { display: flex; }
+.container {
+    display: flex;
+    height: 80vh;
+}
 
-.wheel {size: auto;}
+.wheel {
+    size: auto;
+}
 
-.size-slider {size: auto;}
+.size-slider {
+    size: auto;
+}

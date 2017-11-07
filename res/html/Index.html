@@ -15,6 +15,8 @@
     var socket = io();
     var id;
     var timer;
+    var score;
+
     function StartGame() {
         socket.emit('start game');
         $('.start').remove();
@@ -30,6 +32,8 @@
             return false;
         });
         socket.on('no drawing', function() {
+            canvas.clear();
+            canvas.isDrawingMode = false;
             document.getElementById("word").innerHTML = "Someone else is drawing. Try to guess their drawing!";
         });
         if(canvas.isDrawingMode) {
@@ -51,7 +55,6 @@
         });
         socket.on('round finished', function (msg) {
             clearInterval(timer);
-            canvas.clear();
             document.getElementById("timeleft").textContent = "60 secs";
             $('#messages').append($('<li>').text(msg));
         });
@@ -66,6 +69,15 @@
         });
         socket.on('server message', function(msg) {
             $('#messages').append($('<li>').text(msg));
+        });
+        socket.on('score up', function (points) {
+            var map = new Map(JSON.parse(points));
+            $('#score').empty();
+
+
+            map.forEach(function (v, k) {
+                $('#score').append($('<li>').text(v[1] + ": " + v[0] + " points"));
+            });
         });
     });
 
@@ -91,6 +103,9 @@
         <input class="size-slider" type="range" max="100" min="0" step="1" value="10" id="slider">
         <button onclick="erase()">Erase</button>
         <h1 id="timeleft"></h1>
+        <h2>Score: </h2>
+        <ul id="score">
+        </ul>
     </div>
     <div id="drawwrapper">
         <div id="drawingword"><h2 id="word">Someone else is drawing. Try to guess their drawing!</h2></div>
