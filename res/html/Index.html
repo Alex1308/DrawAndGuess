@@ -34,7 +34,7 @@
         });
         if(canvas.isDrawingMode) {
             canvas.on("path:created", function() {
-                var json = JSON.stringify(canvas)
+                var json = JSON.stringify(canvas);
                 socket.emit('json canvas',json);
             })
         }
