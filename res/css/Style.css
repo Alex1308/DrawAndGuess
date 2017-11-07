@@ -58,6 +58,7 @@ a:hover { text-decoration:underline; }
 #toolwrapper {
     border:1px solid #404040;
     width: 15%;
+    height: 50%;
     background: #EBF4FB;
     margin-left: 5%;
     padding-bottom: 1%;
@@ -85,6 +86,10 @@ a:hover { text-decoration:underline; }
 #messages { list-style-type: none; margin: 0; padding: 0; background: #fff}
 #messages li { padding: 5px 10px; }
 #messages li:nth-child(odd) { background: #eee; }
+
+#score { list-style-type: none; margin: 0; padding: 0; background: #fff; overflow: auto; height: 30%; overflow-x: hidden; max-height: 50% }
+#score li { padding: 5px 10px; }
+#score li:nth-child(odd) { background: #eee; }
 
 #usermsg {
     width:395px;
