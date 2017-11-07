@@ -21,7 +21,6 @@
     }
     $(function () {
         // chat
-
         $('form').submit(function() {
             if ($('#usermsg').val() === "" || $('#username').val() === "") {
                 return false;
@@ -35,8 +34,7 @@
         });
         if(canvas.isDrawingMode) {
             canvas.on("path:created", function() {
-                var json = canvas.toDatalessJSON();
-
+                var json = JSON.stringify(canvas)
                 socket.emit('json canvas',json);
             })
         }
@@ -59,7 +57,7 @@
         });
         socket.on('json canvas', function(json) {
             canvas.isDrawingMode = true;
-            canvas.loadFromDatalessJSON(json, canvas.renderAll.bind(canvas));
+            canvas.loadFromJSON(json, canvas.renderAll.bind(canvas));
             canvas.isDrawingMode = false;
         });
         socket.on('draw message', function(msg) {
