@@ -10,8 +10,9 @@ var options = {
     index: "html/index.html"
 };
 
-var clients = [];
+var clients = new Map();
 var timeout;
+var drawer;
 
 app.use('/', express.static('res', options));
 
@@ -21,34 +22,36 @@ console.log("Listening on port " + port);
 
 io.on('connection', function (socket) {
     console.log('A user connected');
-    clients.push(socket.id);
+    clients.set(socket.id, [0, ""]);
     socket.emit('socketID', socket.id);
-    socket.on('chat message', function(msg, username) {
+    socket.on('chat message', function (msg, username) {
         io.emit('chat message', msg, username);
 
+        clients.get(socket.id)[1] = username;
         console.log(chosenWord);
-        //check if word is geussed correctly
-        if (chosenWord != null) {
+        //check if word is guessed correctly
+        if (chosenWord !== "") {
             if (chosenWord.toLowerCase() === msg.toLowerCase()) {
 
                 io.emit('server message', "Server: Correct! The word was: " + chosenWord);
                 EndOfRound();
+                clients.set(socket.id, [clients.get(socket.id)[0] + 5, username]);
+                clients.set(drawer, [clients.get(drawer)[0] + 10, clients.get(drawer)[1]]);
                 //Do stuff
                 console.log("Correct guess!");
-
+                scoreUpdate();
             }
         }
 
     });
-    socket.on('start game' , function() {
+    socket.on('start game', function () {
         console.log("kalder start game");
         StartGame(socket);
     });
-    socket.on('disconnect' , function() {
-        var index = clients.indexOf(socket.id);
-        clients.splice(index, 1);
+    socket.on('disconnect', function () {
+        clients.delete(socket.id);
     });
-    socket.on('json canvas', function(json) {
+    socket.on('json canvas', function (json) {
         socket.broadcast.emit('json canvas', json);
     });
 });
@@ -66,25 +69,31 @@ function EndOfRound() {
 }
 
 function AssignWordToPlayer() {
+    var currentClient;
     clearTimeout(timeout);
     io.emit('no drawing');
-    if (i >= clients.length) {
+    if (i >= clients.size) {
         i = 0;
     }
     ChooseRandomWord();
     console.log(chosenWord);
-    io.to(clients[i]).emit('new word', chosenWord);
-    io.sockets.connected[clients[i]].on('word accepted', function(username) {
+    currentClient = Array.from(clients.keys())[i];
+    io.to(currentClient).emit('new word', chosenWord);
+    drawer = currentClient;
+    io.sockets.connected[currentClient].on('word accepted', function (username) {
         io.emit('draw message', 'The new drawer is ' + username + '. You now have 1 minute to guess the word.');
     });
     timeout = setTimeout(EndOfRound, 60000);
     i++;
 }
 
+function scoreUpdate() {
+    var converted = JSON.stringify(Array.from(clients));
+    io.emit('score up', converted);
+}
 
 
-
-var chosenWord;
+var chosenWord = "";
 
 var possibleWords = [
     "Avocado",
@@ -125,6 +134,6 @@ var possibleWords = [
 
 
 function ChooseRandomWord() {
-    var random = Math.floor((Math.random()* possibleWords.length));
+    var random = Math.floor((Math.random() * possibleWords.length));
     chosenWord = possibleWords[random];
 }
