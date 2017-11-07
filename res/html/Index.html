@@ -12,10 +12,16 @@
 </head>
 
 <script>
+    var socket = io();
     var id;
+    var timer;
+    function StartGame() {
+        socket.emit('start game');
+        $('.start').remove();
+    }
     $(function () {
-        var socket = io();
         // chat
+
         $('form').submit(function() {
             if ($('#usermsg').val() === "" || $('#username').val() === "") {
                 return false;
@@ -24,11 +30,13 @@
             $('#usermsg').val('');
             return false;
         });
+        socket.on('no drawing', function() {
+            document.getElementById("word").innerHTML = "Someone else is drawing. Try to guess their drawing!";
+        });
         if(canvas.isDrawingMode) {
             canvas.on("path:created", function() {
                 var json = canvas.toDatalessJSON();
 
-                console.log(json);
                 socket.emit('json canvas',json);
             })
         }
@@ -39,16 +47,24 @@
             $('#messages').append($('<li>').text(username + ": " + msg));
         });
         socket.on('new word', function(word) {
+            canvas.isDrawingMode = true;
             document.getElementById("word").innerHTML = "Your word is: " + word;
             socket.emit('word accepted', $('#username').val());
         });
+        socket.on('round finished', function (msg) {
+            clearInterval(timer);
+            canvas.clear();
+            document.getElementById("timeleft").textContent = "60 secs";
+            $('#messages').append($('<li>').text(msg));
+        });
         socket.on('json canvas', function(json) {
-            console.log("hej jeg har modtaget din tegning");
-            console.log(json);
+            canvas.isDrawingMode = true;
             canvas.loadFromDatalessJSON(json, canvas.renderAll.bind(canvas));
+            canvas.isDrawingMode = false;
         });
         socket.on('draw message', function(msg) {
             $('#messages').append($('<li>').text(msg));
+            timerControl();
         });
         socket.on('server message', function(msg) {
             $('#messages').append($('<li>').text(msg));
@@ -56,6 +72,15 @@
     });
 
 
+    function timerControl() {
+        var timeleft = 60;
+        timer = setInterval(function(){
+            timeleft--;
+            document.getElementById("timeleft").textContent = timeleft + " secs";
+            if(timeleft <= 0)
+                clearInterval(timer);
+        },1000);
+    }
 
 </script>
 <body onload="onload();">
@@ -67,6 +92,7 @@
         <div class="wheel" id="colorpicker" onclick="changeColor()"></div>
         <input class="size-slider" type="range" max="100" min="0" step="1" value="10" id="slider">
         <button onclick="erase()">Erase</button>
+        <h1 id="timeleft"></h1>
     </div>
     <div id="drawwrapper">
         <div id="drawingword"><h2 id="word">Someone else is drawing. Try to guess their drawing!</h2></div>
@@ -80,7 +106,7 @@
     <div id="wrapper">
         <div id="menu">
             <p class="welcome" align="left">Welcome, <b><input id="username" type="text" id="username" size="45"/></b></p>
-            <p class="logout"><a id="exit" href="#">Exit Chat</a></p>
+            <button class="start" align="right" onclick="StartGame()">Start Game</button>
             <div style="clear:both"></div>
         </div>
 

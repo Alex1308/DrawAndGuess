@@ -11,6 +11,7 @@ var options = {
 };
 
 var clients = [];
+var timeout;
 
 app.use('/', express.static('res', options));
 
@@ -27,39 +28,56 @@ io.on('connection', function (socket) {
 
         console.log(chosenWord);
         //check if word is geussed correctly
-        if(chosenWord.toLowerCase() === msg.toLowerCase()) {
+        if (chosenWord != null) {
+            if (chosenWord.toLowerCase() === msg.toLowerCase()) {
 
-            io.emit('server message', "Server: Correct! The word was: " + chosenWord);
+                io.emit('server message', "Server: Correct! The word was: " + chosenWord);
+                EndOfRound();
+                //Do stuff
+                console.log("Correct guess!");
 
-            //Do stuff
-            console.log("Correct geuss!");
-
+            }
         }
 
+    });
+    socket.on('start game' , function() {
+        console.log("kalder start game");
+        StartGame(socket);
     });
     socket.on('disconnect' , function() {
         var index = clients.indexOf(socket.id);
         clients.splice(index, 1);
     });
     socket.on('json canvas', function(json) {
-        console.log("ja du er kommet her til");
-        console.log(json);
-        emit('json canvas', json);
+        socket.broadcast.emit('json canvas', json);
     });
 });
 
 var i = 0;
 
-function AssignWordToPlayer(socket) {
+function StartGame() {
+    AssignWordToPlayer();
+}
+
+function EndOfRound() {
+    clearTimeout(timeout);
+    io.emit('round finished', "The round has finished and a new one will begin in 10 seconds.")
+    setTimeout(AssignWordToPlayer, 10000);
+}
+
+function AssignWordToPlayer() {
+    clearTimeout(timeout);
     io.emit('no drawing');
     if (i >= clients.length) {
         i = 0;
     }
     ChooseRandomWord();
+    console.log(chosenWord);
     io.to(clients[i]).emit('new word', chosenWord);
-    socket.on('word accepted', function(username) {
+    io.sockets.connected[clients[i]].on('word accepted', function(username) {
         io.emit('draw message', 'The new drawer is ' + username + '. You now have 1 minute to guess the word.');
     });
+    timeout = setTimeout(EndOfRound, 60000);
     i++;
 }
 

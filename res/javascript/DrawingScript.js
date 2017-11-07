@@ -2,6 +2,7 @@ var slider = document.getElementById("slider");
 
 var canvas = new fabric.Canvas('canvas', {
     isDrawingMode: true
+    
 });
 
 function draw() {
