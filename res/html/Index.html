@@ -47,13 +47,13 @@
             $('#messages').append($('<li>').text(username + ": " + msg));
         });
         socket.on('new word', function(word) {
+            canvas.clear();
             canvas.isDrawingMode = true;
             document.getElementById("word").innerHTML = "Your word is: " + word;
             socket.emit('word accepted', $('#username').val());
         });
         socket.on('round finished', function (msg) {
             clearInterval(timer);
-            canvas.clear();
             document.getElementById("timeleft").textContent = "60 secs";
             $('#messages').append($('<li>').text(msg));
         });
